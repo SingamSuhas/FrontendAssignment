@@ -53,3 +53,4 @@ Thumbs.db
 
 vitest.config.*.timestamp*
 .nx/polygraph
+vite.config.*.timestamp*
