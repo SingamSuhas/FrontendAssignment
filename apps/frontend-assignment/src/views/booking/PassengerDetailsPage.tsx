@@ -31,19 +31,9 @@ export default function PassengerDetailsPage() {
   const [errors, setErrors] = useState<
     Record<string, Record<string, string>>
   >({});
-
-  /*
-   * Convert the selected passenger count to a number.
-   * The fallback prevents errors if the value is empty
-   * or has not been initialized.
-   */
   const numberOfPassengers =
     Number(bookingDetails.numberOfPassengers) || 0;
 
-  /*
-   * Add passenger objects until the passengers array
-   * contains the number selected on BookingDetailsPage.
-   */
   useEffect(() => {
     if (numberOfPassengers <= 0) {
       return;
@@ -78,13 +68,6 @@ export default function PassengerDetailsPage() {
     addPassenger,
   ]);
 
-  /*
-   * Only display the number of passengers selected
-   * on the Booking Details page.
-   *
-   * This is also useful when the user goes back and
-   * reduces the passenger count.
-   */
   const displayedPassengers = passengers.slice(
     0,
     numberOfPassengers
@@ -101,11 +84,6 @@ export default function PassengerDetailsPage() {
         value,
       } as Parameters<typeof updatePassenger>[1]
     );
-
-    /*
-     * Clear the error for the field when the user
-     * changes its value.
-     */
     if (errors[id]?.[field]) {
       setErrors((previousErrors) => ({
         ...previousErrors,
@@ -125,9 +103,6 @@ export default function PassengerDetailsPage() {
 
     let isValid = true;
 
-    /*
-     * Validate only the passengers currently displayed.
-     */
     for (const passenger of displayedPassengers) {
       try {
         await passengerSchema.validate(passenger, {
@@ -161,19 +136,10 @@ export default function PassengerDetailsPage() {
   };
 
   const handleNext = async () => {
-    /*
-     * Prevent navigation if the passenger count
-     * was not selected.
-     */
     if (numberOfPassengers <= 0) {
       navigate("/booking-details");
       return;
     }
-
-    /*
-     * Wait until all required passenger records
-     * have been added.
-     */
     if (
       displayedPassengers.length <
       numberOfPassengers
@@ -233,7 +199,6 @@ export default function PassengerDetailsPage() {
               container
               spacing={3}
             >
-              {/* Name */}
 
               <Grid
                 size={{
@@ -261,7 +226,6 @@ export default function PassengerDetailsPage() {
                 />
               </Grid>
 
-              {/* Passenger Type */}
 
               <Grid
                 size={{
@@ -304,8 +268,6 @@ export default function PassengerDetailsPage() {
                 </TextField>
               </Grid>
 
-              {/* Age */}
-
               <Grid
                 size={{
                   xs: 12,
@@ -338,8 +300,6 @@ export default function PassengerDetailsPage() {
                 />
               </Grid>
 
-              {/* Guardian Name */}
-
               <Grid
                 size={{
                   xs: 12,
@@ -367,8 +327,6 @@ export default function PassengerDetailsPage() {
                   }
                 />
               </Grid>
-
-              {/* Gender */}
 
               <Grid
                 size={{
@@ -404,8 +362,6 @@ export default function PassengerDetailsPage() {
                   </MenuItem>
                 </TextField>
               </Grid>
-
-              {/* Seat Preference */}
 
               <Grid
                 size={{
@@ -447,8 +403,6 @@ export default function PassengerDetailsPage() {
                   </MenuItem>
                 </TextField>
               </Grid>
-
-              {/* Passport Number */}
 
               <Grid
                 size={{
